@@ -20,7 +20,7 @@ public class PurseDaoJdbcImpl implements PurseDao {
     public static final String DELETE_ALL_PURSE = "DELETE FROM purse";
     private ConnectionFactory connectionFactory;
 
-    PurseDaoJdbcImpl(ConnectionFactory connectionFactory){
+    public PurseDaoJdbcImpl(ConnectionFactory connectionFactory){
         this.connectionFactory = connectionFactory;
     }
 
