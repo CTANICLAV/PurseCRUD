@@ -16,6 +16,4 @@ public interface PurseDao {
     void update(Purse purse);
 
     void deleteById(long id);
-
-    void deleteAll();
 }
