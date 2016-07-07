@@ -26,7 +26,7 @@
                  <label>Currency</label>
                  <select class="form-control" name="editPurseCurrency">
                    <c:forEach var="allCurrencyName" items="${allCurrencyName}">
-                      <option>${allCurrencyName.name}</option>
+                      <option value="${allCurrencyName.id}">${allCurrencyName.name}</option>
                      </c:forEach>
                  </select>
              </div>
@@ -67,7 +67,7 @@
                  <label>Currency</label>
                  <select class="form-control" name="addPurseCurrency">
                     <c:forEach var="allCurrencyName" items="${allCurrencyName}">
-                        <option>${allCurrencyName.name}</option>
+                        <option value="${allCurrencyName.id}">${allCurrencyName.name}</option>
                      </c:forEach>
                  </select>
              </div>

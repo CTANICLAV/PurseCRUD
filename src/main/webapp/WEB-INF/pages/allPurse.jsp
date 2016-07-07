@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <html>
 <head>
-<title>All Purse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>All Purse</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -26,12 +28,12 @@
         <th>Actions</th>
     </tr>
     </thead>
-    <c:forEach var="purse" items="${purse}">
+    <c:forEach var="purse" items="${purses}">
         <thbody>
             <tr>
                 <td> ${purse.id}</td>
                 <td>${purse.name}</td>
-                <td> ${purse.currency}</td>
+                <td> ${purse.currencyShortName}</td>
                 <td>${purse.amount}</td>
                 <td>
                     <p>
