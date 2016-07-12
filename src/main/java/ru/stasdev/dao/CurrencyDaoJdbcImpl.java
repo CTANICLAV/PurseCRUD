@@ -15,13 +15,13 @@ import java.util.List;
 
 @Repository
 public class CurrencyDaoJdbcImpl implements CurrencyDao {
-    public static final String COLUMN_ID = "idcurrency";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
-    public static final String SELECT_BY_ID_QUERY = "SELECT * FROM currency WHERE idcurrency = ?";
-    public static final String INSERT_CRURRENCY = "INSERT INTO currency (name) VALUES (?)";
+    public static final String SELECT_BY_ID_QUERY = "SELECT * FROM currency WHERE id = ?";
+    public static final String INSERT_CURRENCY = "INSERT INTO currency (name) VALUES (?)";
     public static final String SELECT_FROM_ALL_CURRENCY = "SELECT * FROM currency";
-    public static final String UPDATES_CURRENCY = "UPDATE currency SET name = ? WHERE idcurrency = ?";
-    public static final String DELETE_CURRENCY = "DELETE FROM currency WHERE idcurrency = ?";
+    public static final String UPDATES_CURRENCY = "UPDATE currency SET name = ? WHERE id = ?";
+    public static final String DELETE_CURRENCY = "DELETE FROM currency WHERE id = ?";
 
     @Autowired
     private DataSource dataSource;
@@ -68,7 +68,7 @@ public class CurrencyDaoJdbcImpl implements CurrencyDao {
     @Override
     public void insert(Currency currency) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_CRURRENCY);) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_CURRENCY);) {
             statement.setString(1, currency.getName());
             int i = statement.executeUpdate();
             if (i == 0) {

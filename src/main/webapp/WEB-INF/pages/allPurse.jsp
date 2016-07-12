@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
-<%@ page contentType="text/html;charset=utf-8" language="java" %>
+<?xml version="1.0" encoding="UTF-8" ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -12,16 +12,18 @@
 <body>
 <div class="container">
     <p>
-        <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT" role="button">All Purse</a>
-        <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
+        <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT" role="button">All Purse</a>
+        <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
+        <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">All User</a>
     </p>
 <center><h1>All Purse</h1></center>
-<p align="right"><a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/add/purse" role="button">add purse</a></p>
+<p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/add/purse" role="button">add purse</a></p>
 
 <table class="table">
     <thead>
     <tr>
         <th>ID</th>
+        <th>User</th>
         <th>Name</th>
         <th>Currency</th>
         <th>Amount</th>
@@ -31,13 +33,14 @@
     <c:forEach var="purse" items="${purses}">
         <thbody>
             <tr>
-                <td> ${purse.id}</td>
+                <td>${purse.id}</td>
+                <td>${purse.ownerId}</th>
                 <td>${purse.name}</td>
-                <td> ${purse.currencyShortName}</td>
+                <td>${purse.currencyShortName}</td>
                 <td>${purse.amount}</td>
                 <td>
                     <p>
-                        <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/purse/${purse.id}" role="button">delete</a>
+                        <a class="btn btn-danger btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/purse/${purse.id}" role="button">delete</a>
                         <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/edit/purse/${purse.id}" role="button">edit</a>
                     </p>
                 </td>

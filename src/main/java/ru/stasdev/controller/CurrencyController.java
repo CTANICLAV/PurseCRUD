@@ -24,15 +24,7 @@ public class CurrencyController {
     @Autowired
     private PurseService purseService;
 
-    public void setCurrencyService(CurrencyService currencyService) {
-        this.currencyService = currencyService;
-    }
-
-    public void setPurseService(PurseService purseService) {
-        this.purseService = purseService;
-    }
-
-    @RequestMapping(value = "all/currency", method = RequestMethod.GET)
+    @RequestMapping(value = "/all/currency", method = RequestMethod.GET)
     public String showPageAllCurrency(ModelMap model) {
         model.addAttribute("currencies", currencyService.getAll());
         return ALL_CURRENCY;
@@ -40,36 +32,37 @@ public class CurrencyController {
 
     @RequestMapping(value = "/add/currency", method = RequestMethod.GET)
     public String showPageAddCurrency(ModelMap model) {
-        model.addAttribute("checkEditOfAddCurrency", "addCurrency");
+        model.addAttribute("inspection", "add");
         model.addAttribute("currencies", currencyService.getAll());
         return CHANGE_CURRENCY;
     }
 
     @RequestMapping(value = "/add/currency", method = RequestMethod.POST)
-    public RedirectView addCurrency(@RequestParam String addCurrencyName) {
-        currencyService.insert(new Currency(0, addCurrencyName));
+    public RedirectView addCurrency(@RequestParam String saveCurrencyName) {
+        currencyService.insert(new Currency(0, saveCurrencyName));
         return new RedirectView("/PurseCRUD-1.0-SNAPSHOT/all/currency");
     }
 
     @RequestMapping(value = "/edit/currency/{id}", method = RequestMethod.GET)
     public String showPageEditCurrency(@PathVariable(value = "id") Long id, ModelMap model) {
-        model.addAttribute("checkEditOfAddCurrency", "editCurrency");
+        model.addAttribute("inspection", "edit");
         model.addAttribute("editCurrency", currencyService.getById(id));
         return CHANGE_CURRENCY;
     }
 
     @RequestMapping(value = "/edit/currency/{id}", method = RequestMethod.POST)
-    public RedirectView currencyEdit(@PathVariable(value = "id") Long id, @RequestParam String editCurrencyName, ModelMap model) {
-        currencyService.update(new Currency(id, editCurrencyName));
+    public RedirectView currencyEdit(@PathVariable(value = "id") Long id, @RequestParam String saveCurrencyName) {
+        currencyService.update(new Currency(id, saveCurrencyName));
         return new RedirectView("/PurseCRUD-1.0-SNAPSHOT/all/currency");
     }
 
     @RequestMapping(value = "/delete/currency/{id}", method = RequestMethod.GET)
     public RedirectView deleteCurrency(@PathVariable(value = "id") Long id) {
-                currencyService.deleteById(id);
+        currencyService.deleteById(id);
         return new RedirectView("/PurseCRUD-1.0-SNAPSHOT/all/currency");
     }
 
 }
+
 
 

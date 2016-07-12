@@ -12,15 +12,16 @@ import java.util.List;
 @Repository
 public class PurseDaoJdbcImpl implements PurseDao {
 
-    public static final String SELECT_BY_ID_QUERY = "SELECT * FROM purses WHERE idPurse = ?";
-    public static final String COLUMN_ID = "idPurse";
+    public static final String SELECT_BY_ID_QUERY = "SELECT * FROM purse WHERE id = ?";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_USER = "ownerId";
     public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_CURRENCY = "idCurrency";
+    public static final String COLUMN_CURRENCY = "currencyId";
     public static final String COLUMN_AMOUNT = "amount";
-    public static final String INSERT_PURSE = "INSERT INTO purses (name, idCurrency, amount) VALUES (?, ?, ?)";
-    public static final String SELECT_FROM_ALL_PURSE = "SELECT * FROM purses";
-    public static final String UPDATES_PURSE = "UPDATE purses SET name = ?, idCurrency = ?, amount = ? WHERE idPurse = ?";
-    public static final String DELETE_PURSE = "DELETE FROM purses WHERE idPurse = ?";
+    public static final String INSERT_PURSE = "INSERT INTO purse (ownerId, currencyId, name, amount) VALUES (?, ?, ?, ?)";
+    public static final String SELECT_FROM_ALL_PURSE = "SELECT * FROM purse";
+    public static final String UPDATES_PURSE = "UPDATE purse SET ownerId = ?, currencyId = ?, name = ?, amount = ? WHERE id = ?";
+    public static final String DELETE_PURSE = "DELETE FROM purse WHERE id = ?";
 
     @Autowired
     private DataSource dataSource;
@@ -39,6 +40,7 @@ public class PurseDaoJdbcImpl implements PurseDao {
                     return new Purse(resultSet.getLong(COLUMN_ID),
                             resultSet.getString(COLUMN_NAME),
                             resultSet.getInt(COLUMN_CURRENCY),
+                            resultSet.getInt(COLUMN_USER),
                             resultSet.getInt(COLUMN_AMOUNT));
                 }
             }
@@ -52,9 +54,10 @@ public class PurseDaoJdbcImpl implements PurseDao {
     public void insert(Purse purse) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_PURSE);) {
-            statement.setString(1, purse.getName());
-            statement.setInt(2, purse.getIdCurrency());
-            statement.setInt(3, purse.getAmount());
+            statement.setLong(1, purse.getOwnerId());
+            statement.setLong(2, purse.getCurrencyId());
+            statement.setString(3, purse.getName());
+            statement.setLong(4,purse.getAmount());
             int i = statement.executeUpdate();
             if (i == 0) {
                 throw new DaoException("Table 'Purses' was not updated", null);
@@ -74,6 +77,7 @@ public class PurseDaoJdbcImpl implements PurseDao {
                     purse.add(new Purse(resultSet.getLong(COLUMN_ID),
                             resultSet.getString(COLUMN_NAME),
                             resultSet.getInt(COLUMN_CURRENCY),
+                            resultSet.getInt(COLUMN_USER),
                             resultSet.getInt(COLUMN_AMOUNT)));
                 }
             }
@@ -88,10 +92,11 @@ public class PurseDaoJdbcImpl implements PurseDao {
     public void update(Purse purse) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATES_PURSE);) {
-            statement.setString(1, purse.getName());
-            statement.setInt(2, purse.getIdCurrency());
-            statement.setInt(3, purse.getAmount());
-            statement.setLong(4, purse.getId());
+            statement.setLong(1, purse.getOwnerId());
+            statement.setLong(2, purse.getCurrencyId());
+            statement.setString(3, purse.getName());
+            statement.setLong(4, purse.getAmount());
+            statement.setLong(5, purse.getId());
             statement.executeUpdate();
         } catch (Exception e) {
             throw new DaoException(String.format("Method update(purse: '%d') has throw an exception.", purse), e);

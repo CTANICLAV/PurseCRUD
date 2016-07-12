@@ -2,24 +2,18 @@ package ru.stasdev.domain;
 
 public class Purse {
     private long id;
-    private int idcurrency;
+    private int currencyId;
     private String name;
     private String currencyShortName;
     private int amount;
+    private int ownerId;
 
-    public Purse(long id, String name, int idcurrency,int amount){
-        this.id = id;
+    public Purse(long id, String name, int currencyId, int ownerId, int amount){
+            this.id = id;
         this.name = name;
-        this.idcurrency = idcurrency;
+        this.currencyId = currencyId;
         this.amount = amount;
-    }
-
-    public Purse(long id, int amount, String name, int idcurrency, String currencyShortName){
-        this.id = id;
-        this.amount = amount;
-        this.name = name;
-        this.idcurrency = idcurrency;
-        this.currencyShortName = currencyShortName;
+        this.ownerId = ownerId;
     }
 
     public String getName(){return name;}
@@ -30,9 +24,9 @@ public class Purse {
 
     public void setId(long id){this.id = id;}
 
-    public int getIdCurrency(){return idcurrency;}
+    public int getCurrencyId(){return currencyId;}
 
-    public void setIdCurrency(int idcurrency){this.idcurrency = idcurrency;}
+    public void setIdCurrency(int currencyId){this.currencyId = currencyId;}
 
     public int getAmount(){return amount;}
 
@@ -40,6 +34,14 @@ public class Purse {
 
     public void setCurrencyShortName(String currencyShortName){
         this.currencyShortName = currencyShortName;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getCurrencyShortName(){
@@ -51,8 +53,9 @@ public class Purse {
         return "Purse{ "+
                 "id "+id+
                 "name "+name+
-                "idcurrency "+idcurrency+
+                "currencyId "+currencyId+
                 "currencyShortName='"+currencyShortName+
+                "ownerId='"+ownerId+
                 "amount "+amount+'}';
     }
 

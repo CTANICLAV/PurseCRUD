@@ -2,21 +2,17 @@ package ru.stasdev.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.stasdev.dao.CurrencyDao;
 import ru.stasdev.domain.Currency;
 
 import java.util.List;
 
-@Repository
+@Service
 public class CurrencyServiceImpl implements CurrencyService{
 
     @Autowired
     private CurrencyDao currencyDao;
-
-    public void setCurrencyDao(CurrencyDao currencyDao) {
-        this.currencyDao = currencyDao;
-    }
-
 
     @Override
     public List<Currency> getAll() {

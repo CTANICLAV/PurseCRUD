@@ -10,11 +10,12 @@
  <body>
  <div class="container">
      <p>
-         <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT" role="button">All Purse</a>
-         <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
+         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT" role="button">All Purse</a>
+         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
+         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">All User</a>
      </p>
      <center><h1>All Currency</h1></center>
-     <p align="right"><a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/add/currency" role="button">add currency</a></p>
+     <p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/add/currency" role="button">add currency</a></p>
 
      <table class="table">
          <thead>
@@ -31,7 +32,7 @@
                      <td>${currency.name}</td>
                     <td>
                         <p>
-                            <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/currency/${currency.id}" role="button">delete</a>
+                            <a class="btn btn-danger btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/currency/${currency.id}" role="button">delete</a>
                             <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/edit/currency/${currency.id}" role="button">edit</a>
                         </p>
                     </td>
