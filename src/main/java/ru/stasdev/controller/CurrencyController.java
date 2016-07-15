@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
         import org.springframework.web.servlet.view.RedirectView;
         import ru.stasdev.domain.Currency;
         import ru.stasdev.service.CurrencyService;
-import ru.stasdev.service.PurseService;
 
 @Controller
 public class CurrencyController {
@@ -20,9 +19,6 @@ public class CurrencyController {
 
     @Autowired
     private CurrencyService currencyService;
-
-    @Autowired
-    private PurseService purseService;
 
     @RequestMapping(value = "/all/currency", method = RequestMethod.GET)
     public String showPageAllCurrency(ModelMap model) {

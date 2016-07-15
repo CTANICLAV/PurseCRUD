@@ -14,8 +14,8 @@
         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">All User</a>
     </p>
-    <center><h1>All User</h1></center>
-    <p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/add/user" role="button">add user</a></p>
+    <h1><p class="text-center">All User</p></h1>
+    <p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/save/user" role="button">add user</a></p>
     <table class="table">
         <thead>
         <tr>
@@ -34,7 +34,7 @@
                     <td>
                         <p>
                             <a class="btn btn-danger btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/user/${user.id}" role="button">delete</a>
-                            <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/edit/user/${user.id}" role="button">edit</a>
+                            <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/save/user/${user.id}" role="button">edit</a>
                         </p>
                     </td>
                 </tr>

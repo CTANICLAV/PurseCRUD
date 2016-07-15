@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,26 +15,27 @@
         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">All User</a>
     </p>
-    <center><h1>Save User</h1></center>
-    <c:if test="${inspection.equals('edit')}">
-    <form method="post" action="/PurseCRUD-1.0-SNAPSHOT/edit/user/${editUser.id}">
-        </c:if>
-        <c:if test="${inspection.equals('add')}">
-        <form method="post" action="/PurseCRUD-1.0-SNAPSHOT/add/user">
-            </c:if>
-            <div class="form-group">
-                <label>Name</label>
-                <input class="form-control" name="saveUserName" value="${editUser.firstName}" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <label>Last Name</label>
-                <input class="form-control" name="saveUserLastName" value="${editUser.lastName}"
-                       placeholder="Last Name">
-            </div>
-            <input class=" btn btn-success btn-xs" type="submit" value="save">
-            <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">cancel</a>
-        </form>
-    </form>
+    <h1><p class="text-center">Save User</p></h1>
+    <form:form method="post" action="/PurseCRUD-1.0-SNAPSHOT/save/user/${userForm.userId}" commandName="userForm">
+        <div class="form-group">
+            <form:input class="form-control" id="userId" path="userId" type="hidden"/>
+        </div>
+        <label>Name</label><br/>
+        <div class="form-group">
+            <form:input class="form-control" id="firstName" path="firstName" placeholder="Name"
+                        value="${userForm.firstName}"/>
+            <form:errors path="firstName" cssStyle="color: #ff0000;"/>
+        </div>
+        <label>Last Name</label><br/>
+        <div class="form-group">
+            <form:input class="form-control" id="lastName" path="lastName" placeholder="Last Name"
+                        value="${userForm.lastName}"/>
+            <form:errors path="lastName" cssStyle="color: #ff0000;"/>
+        </div>
+        <input class="btn btn-success btn-xs" type="submit" value="save">
+        <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">cancel</a>
+    </form:form>
+</div>
 </body>
 </html>
 
