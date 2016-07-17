@@ -16,14 +16,14 @@ public class UserFromValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "valid.firstName.empty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "valid.lastName.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "valid.userFirstName.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "valid.userLastName.empty");
         UserForm message = (UserForm) target;
         if (message.getFirstName().length() < 3 || message.getFirstName().length() > 20) {
-            errors.rejectValue("firstName", "valid.firstName.length");
+            errors.rejectValue("firstName", "valid.userFirstName.length");
         }
         if (message.getLastName().length() < 5 || message.getLastName().length() > 20) {
-            errors.rejectValue("lastName", "valid.lastName.length");
+            errors.rejectValue("lastName", "valid.userLastName.length");
         }
     }
 }

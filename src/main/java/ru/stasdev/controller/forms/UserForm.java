@@ -3,7 +3,7 @@ package ru.stasdev.controller.forms;
 import ru.stasdev.domain.User;
 
 public class UserForm {
-    private String userId;
+    private String id;
     private String firstName;
     private String lastName;
 
@@ -11,17 +11,17 @@ public class UserForm {
     }
 
     public UserForm(User user) {
-        this.userId = Long.toString(user.getId());
+        this.id = Long.toString(user.getId());
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {

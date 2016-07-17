@@ -17,6 +17,7 @@ import ru.stasdev.service.UserService;
 public class UserController {
     public static final String ALL_USER = "allUser";
     public static final String SAVE_USER = "saveUser";
+    public static final String ERROR_PAGE = "errorPage";
     @Autowired
     UserFromValidator userFromValidator;
     @Autowired
@@ -41,25 +42,24 @@ public class UserController {
 
     @RequestMapping(value = "/save/user/{id}", method = RequestMethod.GET)
     public String showPageEditUser(@PathVariable(value = "id") Long id, ModelMap model) {
-        model.addAttribute("userForm", new UserForm(userService.getById(id)));
+        User user = userService.getById(id);
+        if (user == null) {
+            return ERROR_PAGE;
+        }
+        model.addAttribute("userForm", new UserForm(user));
         return SAVE_USER;
     }
 
-    @RequestMapping(value = "/save/user/", method = RequestMethod.POST)
-    public String addUser(@Validated UserForm userForm, BindingResult bindingResult, ModelMap model) {
+    @RequestMapping(value = "/save/user", method = RequestMethod.POST)
+    public String saveUser(@Validated UserForm userForm, BindingResult bindingResult, ModelMap model) {
         if (bindingResult.hasErrors()) {
             return SAVE_USER;
         }
-        userService.insert(new User(0, userForm.getFirstName(), userForm.getLastName()));
-        return showAllUsers(model);
-    }
-
-    @RequestMapping(value = "/save/user/{id}", method = RequestMethod.POST)
-    public String editUser(@PathVariable(value = "id") Long id, @Validated UserForm userForm, BindingResult bindingResult, ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return SAVE_USER;
+        if ("".equals(userForm.getId())){
+            userService.insert(new User(0, userForm.getFirstName(), userForm.getLastName()));
+        }else{
+            userService.update(new User(Integer.parseInt(userForm.getId()), userForm.getFirstName(), userForm.getLastName()));
         }
-        userService.update(new User(id, userForm.getFirstName(), userForm.getLastName()));
         return showAllUsers(model);
     }
 
