@@ -1,5 +1,6 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%@ taglib prefix="ex" uri="/WEB-INF/custom.tld"%>
  <html>
  <head>
      <title>All Currency</title>
@@ -9,11 +10,7 @@
  </head>
  <body>
  <div class="container">
-     <p>
-         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT" role="button">All Purse</a>
-         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/currency" role="button">All Currency</a>
-         <a class="btn btn-primary btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/all/user" role="button">All User</a>
-     </p>
+     <ex:navigationButtons/>
     <h1><p class="text-center">All Currency</p></h1>
      <p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/save/currency" role="button">add currency</a></p>
 
