@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="ex" uri="/WEB-INF/custom.tld" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -12,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-    <ex:navigationButtons/>
+    <jsp:include page="topNavigationButtons.jsp" flush="true"/>
     <h1><p class="text-center">Save Currency</p></h1>
     <form:form method="post" action="/PurseCRUD-1.0-SNAPSHOT/save/currency" commandName="currencyForm">
         <form:input class="form-control" id="id" path="id" value="${currencyForm.id}" type="hidden"/>

@@ -11,17 +11,10 @@
 <body>
 <div class="container">
     <jsp:include page="topNavigationButtons.jsp" flush="true"/>
-    <h1><p class="text-center">Save Purse</p></h1>
-    <form:form method="post" action="/PurseCRUD-1.0-SNAPSHOT/save/purse" commandName="purseForm">
-        <form:input class="form-control" id="id" path="id" value="${purseForm.id}" type="hidden"/>
-        <div>
-            <label>User</label>
-            <form:select path="ownerId" class="form-control">
-                <c:forEach var="user" items="${users}">
-                    <option value="${user.id}">${user.firstName}:${user.lastName}</option>
-                </c:forEach>
-            </form:select>
-        </div>
+    <h1><p class="text-center">Add purse user.</p></h1>
+    <form:form method="post" action="/PurseCRUD-1.0-SNAPSHOT/user/save/purse/${ownerId}" commandName="purseForm">
+        <form:input class="form-control" id="id" path="id" type="hidden"/>
+        <form:input class="form-control" id="ownerId" path="ownerId" value="${ownerId}" type="hidden"/>
         <div class="form-group">
             <label>Name</label>
             <form:input class="form-control" id="name" path="name" placeholder="Name" value="${purseForm.name}"/>
