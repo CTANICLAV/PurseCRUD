@@ -5,7 +5,7 @@ import java.util.List;
 
 //Этот интерфейс содержит все элементарные операции связанные с классом Purse
 
-public interface PurseDao {
+public interface PurseDAO {
 
     Purse getById(long id);
 

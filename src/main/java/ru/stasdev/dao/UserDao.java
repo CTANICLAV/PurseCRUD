@@ -4,7 +4,7 @@ import ru.stasdev.domain.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserDAO {
 
     User getById(long id);
 

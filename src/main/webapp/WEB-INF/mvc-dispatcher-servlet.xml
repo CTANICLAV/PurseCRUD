@@ -13,16 +13,15 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-
-    <jdbc:embedded-database id="dataSource" type="H2">
-        <jdbc:script location="classpath:dbscripts/001_create_currency_table.sql"/>
-        <jdbc:script location="classpath:dbscripts/002_create_user_table.sql"/>
-        <jdbc:script location="classpath:dbscripts/003_create_purse_table.sql"/>
-        <jdbc:script location="classpath:dbscripts/data_for_users_table.sql"/>
-        <jdbc:script location="classpath:dbscripts/data_for_currency_table.sql"/>
-        <jdbc:script location="classpath:dbscripts/data_for_purse_table.sql"/>
-    </jdbc:embedded-database>
-
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mydbtest"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="initialSize" value="3" />
+        <property name="maxActive" value="10" />
+    </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="validation"/>

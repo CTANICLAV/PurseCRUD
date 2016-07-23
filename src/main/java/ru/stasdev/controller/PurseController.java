@@ -22,7 +22,7 @@ public class PurseController {
     public static final String ALL_PURSE = "allPurse";
     public static final String ERROR_PAGE = "errorPage";
     public static final String SAVE_PURSE = "savePurse";
-    public static final String PAGE_USER_SAVE_PURSE = "testAddPurseToUser";
+    public static final String PAGE_USER_SAVE_PURSE = "addPurseToUser";
     @Autowired
     private CurrencyService currencyService;
     @Autowired
