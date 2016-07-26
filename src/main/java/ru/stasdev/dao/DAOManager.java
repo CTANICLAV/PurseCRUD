@@ -6,7 +6,9 @@ public interface DAOManager extends AutoCloseable {
 
     PurseDAO getPurseDAO();
 
-    CurrencyDAO getCurrencyDAO();;
+    CurrencyDAO getCurrencyDAO();
+
+    ExchangeDAO getExchangeDAO();
 
     void beginTransaction();
 

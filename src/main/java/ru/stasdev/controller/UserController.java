@@ -19,7 +19,7 @@ public class UserController {
     public static final String SAVE_USER = "saveUser";
     public static final String ERROR_PAGE = "errorPage";
     @Autowired
-    UserFromValidator userFromValidator;
+    private UserFromValidator userFromValidator;
     @Autowired
     private UserService userService;
 

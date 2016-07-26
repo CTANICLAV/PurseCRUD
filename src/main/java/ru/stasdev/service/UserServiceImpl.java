@@ -90,7 +90,12 @@ public class UserServiceImpl implements UserService {
         try(DAOManager daoManager = daoManagerFactory.getDAOManager()) {
             daoManager.beginTransaction();
             try {
-                daoManager.getPurseDAO().deleteById(id);
+                List<Purse> purses = daoManager.getPurseDAO().getAll();
+                for (Purse purse : purses) {
+                    if(purse.getOwnerId() == id) {
+                        daoManager.getPurseDAO().deleteById(purse.getId());
+                    }
+                }
                 daoManager.getUserDAO().deleteById(id);
                 daoManager.commitTransaction();
             }catch (Exception e) {
