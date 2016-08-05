@@ -24,8 +24,8 @@
             <thbody>
                 <tr>
                     <td> ${exchange.id}</td>
-                    <td>${exchange.sourceCurrencyShortName}</td>
-                    <td>${exchange.targetCurrencyShortName}</td>
+                    <td>${exchange.sourceCurrency.name}</td>
+                    <td>${exchange.targetCurrency.name}</td>
                     <td>${exchange.exchangeRate}</td>
                     <td>
                         <p>

@@ -16,9 +16,9 @@ public class PurseForm {
     public PurseForm(Purse purse) {
         this.id = Long.toString(purse.getId());
         this.name = purse.getName();
-        this.amount = Integer.toString(purse.getAmount());
-        this.currencyId = Integer.toString(purse.getCurrencyId());
-        this.ownerId = Integer.toString(purse.getOwnerId());
+        this.amount = purse.getAmount().toString();
+        this.currencyId = Long.toString(purse.getCurrency().getId());
+        this.ownerId = Long.toString(purse.getOwner().getId());
     }
 
 

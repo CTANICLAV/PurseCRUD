@@ -11,8 +11,6 @@
 <div class="container">
     <jsp:include page="topNavigationButtons.jsp" flush="true"/>
     <h1><p class="text-center">All Purse</p></h1>
-<p align="right"><a class="btn btn-info btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/save/purse" role="button">add purse</a></p>
-
 <table class="table">
     <thead>
     <tr>
@@ -28,9 +26,9 @@
         <thbody>
             <tr>
                 <td>${purse.id}</td>
-                <td>${purse.ownerId}</th>
+                <td>${purse.owner.id}</th>
                 <td>${purse.name}</td>
-                <td>${purse.currencyShortName}</td>
+                <td>${purse.currency.name}</td>
                 <td>${purse.amount}</td>
                 <td>
                     <p>

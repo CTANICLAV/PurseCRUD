@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface ExchangeDAO {
 
+    void beginTransaction();
+
+    void commitTransaction();
+
+    void rollbackTransaction();
+
     Exchange getById(long id);
 
     void insert(Exchange exchange);

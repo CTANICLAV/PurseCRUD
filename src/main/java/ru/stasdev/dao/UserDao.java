@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface UserDAO {
 
+    void beginTransaction();
+
+    void commitTransaction();
+
+    void rollbackTransaction();
+
     User getById(long id);
 
     List<User> getAll();

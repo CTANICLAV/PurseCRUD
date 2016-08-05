@@ -15,8 +15,8 @@ public class ExchangeForm {
 
     public ExchangeForm(Exchange exchange) {
         this.id = Long.toString(exchange.getId());
-        this.sourceCurrencyId = Long.toString(exchange.getSourceCurrencyId());
-        this.targetCurrencyId = Long.toString(exchange.getTargetCurrencyId());
+        this.sourceCurrencyId = Long.toString(exchange.getSourceCurrency().getId());
+        this.targetCurrencyId = Long.toString(exchange.getTargetCurrency().getId());
         this.exchangeRate = Double.toString(exchange.getExchangeRate());
     }
 
@@ -57,7 +57,7 @@ public class ExchangeForm {
         return "ExchangeForm{" +
                 "id='"+id+'\'' +
                 ", sourceCurrencyId='" + sourceCurrencyId + '\'' +
-                ", targetCurrnecyId='" + targetCurrencyId + '\''+
+                ", targetCurrencyId='" + targetCurrencyId + '\''+
                 ", exchangeRate='" + exchangeRate + '\'' +
                 '}';
     }

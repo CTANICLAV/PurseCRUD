@@ -6,6 +6,12 @@ import java.util.List;
 
 public interface CurrencyDAO {
 
+    void beginTransaction();
+
+    void commitTransaction();
+
+    void rollbackTransaction();
+
     Currency getById(long id);
 
     List<Currency> getAll();

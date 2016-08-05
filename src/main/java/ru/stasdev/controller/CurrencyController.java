@@ -59,9 +59,11 @@ public class CurrencyController {
             return SAVE_CURRENCY;
         }
         if(currencyForm.getId().isEmpty()){
-            currencyService.insert(new Currency(0, currencyForm.getShortName()));
+            currencyService.insert(new Currency(currencyForm.getShortName()));
         } else {
-            currencyService.update(new Currency(Integer.parseInt(currencyForm.getId()), currencyForm.getShortName()));
+            Currency currency = new Currency(currencyForm.getShortName());
+            currency.setId(Long.parseLong(currencyForm.getId()));
+            currencyService.update(currency);
         }
         return showPageAllCurrency(model);
     }

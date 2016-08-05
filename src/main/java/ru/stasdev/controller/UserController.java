@@ -56,9 +56,11 @@ public class UserController {
             return SAVE_USER;
         }
         if ("".equals(userForm.getId())){
-            userService.insert(new User(0, userForm.getFirstName(), userForm.getLastName()));
+            userService.insert(new User(userForm.getFirstName(), userForm.getLastName()));
         }else{
-            userService.update(new User(Integer.parseInt(userForm.getId()), userForm.getFirstName(), userForm.getLastName()));
+            User user = new User(userForm.getFirstName(), userForm.getLastName());
+            user.setId(Long.parseLong(userForm.getId()));
+            userService.update(user);
         }
         return showAllUsers(model);
     }

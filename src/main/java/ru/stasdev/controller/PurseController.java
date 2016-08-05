@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.stasdev.controller.forms.PurseForm;
 import ru.stasdev.controller.validator.PurseFromValidator;
+import ru.stasdev.domain.Currency;
 import ru.stasdev.domain.Purse;
 import ru.stasdev.domain.User;
 import ru.stasdev.service.CurrencyService;
 import ru.stasdev.service.PurseService;
 import ru.stasdev.service.UserService;
+
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/")
@@ -44,14 +47,6 @@ public class PurseController {
         return ALL_PURSE;
     }
 
-    @RequestMapping(value = "/save/purse", method = RequestMethod.GET)
-    public String showPageAddPurse(ModelMap model) {
-        model.addAttribute("purseForm", new PurseForm());
-        model.addAttribute("users", userService.getAll());
-        model.addAttribute("currencies", currencyService.getAll());
-        return SAVE_PURSE;
-    }
-
     @RequestMapping(value = "/save/purse/{id}", method = RequestMethod.GET)
     public String showPageEditPurse(@PathVariable(value = "id") Long id, ModelMap model) {
         Purse purse = purseService.getById(id);
@@ -59,7 +54,7 @@ public class PurseController {
             return ERROR_PAGE;
         }
         model.addAttribute("purseForm", new PurseForm(purse));
-        model.addAttribute("users", userService.getAll());
+        model.addAttribute("ownerId", purse.getOwner().getId());
         model.addAttribute("currencies", currencyService.getAll());
         return SAVE_PURSE;
     }
@@ -71,21 +66,15 @@ public class PurseController {
             model.addAttribute("currencies", currencyService.getAll());
             return SAVE_PURSE;
         }
-        if ("".equals(purseForm.getId())) {
-            purseService.insert(new Purse(0, purseForm.getName(), Integer.parseInt(purseForm.getCurrencyId()), Integer.parseInt(purseForm.getOwnerId()), Integer.parseInt(purseForm.getAmount())));
-        } else {
-            purseService.update(new Purse(Integer.parseInt(purseForm.getId()), purseForm.getName(), Integer.parseInt(purseForm.getCurrencyId()), Integer.parseInt(purseForm.getOwnerId()), Integer.parseInt(purseForm.getAmount())));
-        }
-        return showPageAllPurses(model);
+        User user = userService.getById(Long.parseLong(purseForm.getOwnerId()));
+        Currency currency = currencyService.getById(Long.parseLong(purseForm.getCurrencyId()));
+        Purse purse = new Purse(purseForm.getName(), currency, user, new BigDecimal(purseForm.getAmount()));
+        purse.setId(Long.parseLong(purseForm.getId()));
+        purseService.update(purse);
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/delete/purse/{id}", method = RequestMethod.GET)
-    public RedirectView deletePurse(@PathVariable(value = "id") Long id) {
-        purseService.deleteById(id);
-        return new RedirectView("/PurseCRUD-1.0-SNAPSHOT");
-    }
-
-    @RequestMapping(value = "/user/save/purse/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/save/purse/{id}", method = RequestMethod.GET)
     public String showPageAddPurseUser(@PathVariable(value = "id") Long id, ModelMap model) {
         User user = userService.getById(id);
         if (user == null) {
@@ -100,7 +89,7 @@ public class PurseController {
     @RequestMapping(value = "/user/save/purse/{id}", method = RequestMethod.POST)
     public String addPurseUser(@PathVariable(value = "id") Long id, @Validated PurseForm purseForm, BindingResult bindingResult, ModelMap model) {
         User user = userService.getById(id);
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             if (user == null) {
                 return ERROR_PAGE;
             }
@@ -108,7 +97,15 @@ public class PurseController {
             model.addAttribute("currencies", currencyService.getAll());
             return PAGE_USER_SAVE_PURSE;
         }
-        purseService.insert(new Purse(0, purseForm.getName(), Integer.parseInt(purseForm.getCurrencyId()), Integer.parseInt(purseForm.getOwnerId()), Integer.parseInt(purseForm.getAmount())));
-        return showPageAllPurses(model);
+        Currency currency = currencyService.getById(Long.parseLong(purseForm.getCurrencyId()));
+        purseService.insert(new Purse(purseForm.getName(), currency, user,
+                new BigDecimal(purseForm.getAmount())));
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/delete/purse/{id}", method = RequestMethod.GET)
+    public RedirectView deletePurse(@PathVariable(value = "id") Long id) {
+        purseService.deleteById(id);
+        return new RedirectView("/PurseCRUD-1.0-SNAPSHOT");
     }
 }

@@ -2,8 +2,6 @@ package ru.stasdev.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.stasdev.dao.DAOManager;
-import ru.stasdev.dao.DAOManagerFactory;
 import ru.stasdev.dao.PurseDAO;
 import ru.stasdev.dao.UserDAO;
 import ru.stasdev.domain.Purse;
@@ -15,22 +13,23 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private DAOManagerFactory daoManagerFactory;
+    private UserDAO userDAO;
+
+    @Autowired
+    private PurseDAO purseDAO;
 
     @Override
     public User getById(long id) {
         try {
-            try(DAOManager daoManager = daoManagerFactory.getDAOManager()) {
-                daoManager.beginTransaction();
+                userDAO.beginTransaction();
                 try {
-                    User user =daoManager.getUserDAO().getById(id);
-                    daoManager.commitTransaction();
+                    User user = userDAO.getById(id);
+                    userDAO.commitTransaction();
                     return user;
                 }catch (Exception e) {
-                    daoManager.rollbackTransaction();
+                    userDAO.rollbackTransaction();
                     throw new ServiceException(String.format("Can't get user by id (%s)", id), e);
                 }
-            }
         } catch(Exception e) {
             throw new ServiceException(String.format("Can't get user by id (%s)", id),e);
         }
@@ -38,13 +37,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(User user) {
-        try(DAOManager daoManager = daoManagerFactory.getDAOManager()) {
-            daoManager.beginTransaction();
+        try {
+            userDAO.beginTransaction();
             try {
-                daoManager.getUserDAO().insert(user);
-                daoManager.commitTransaction();
+                userDAO.insert(user);
+                userDAO.commitTransaction();
             } catch (Exception e) {
-                daoManager.rollbackTransaction();
+                userDAO.rollbackTransaction();
                 throw new ServiceException(String.format("Can't insert (%s)",user), e);
             }
         }catch (Exception e) {
@@ -54,14 +53,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        try(DAOManager daoManager = daoManagerFactory.getDAOManager()) {
-            daoManager.beginTransaction();
+        try {
+            userDAO.beginTransaction();
             try {
-                List<User> users = daoManager.getUserDAO().getAll();
-                daoManager.commitTransaction();
+                List<User> users = userDAO.getAll();
+                userDAO.commitTransaction();
                 return users;
             } catch (Exception e) {
-                daoManager.rollbackTransaction();
+                userDAO.rollbackTransaction();
                 throw new ServiceException(String.format("Can't get all users"),e);
             }
         }catch (Exception e) {
@@ -71,13 +70,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-        try(DAOManager daoManager = daoManagerFactory.getDAOManager()){
-            daoManager.beginTransaction();
+        try {
+            userDAO.beginTransaction();
             try {
-                daoManager.getUserDAO().update(user);
-                daoManager.commitTransaction();
+                userDAO.update(user);
+                userDAO.commitTransaction();
             } catch (Exception e) {
-                daoManager.rollbackTransaction();
+                userDAO.rollbackTransaction();
                 throw new ServiceException(String.format("Can't update user (%s)",user),e);
             }
         } catch (Exception e) {
@@ -87,19 +86,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(long id) {
-        try(DAOManager daoManager = daoManagerFactory.getDAOManager()) {
-            daoManager.beginTransaction();
+        try {
+            userDAO.beginTransaction();
             try {
-                List<Purse> purses = daoManager.getPurseDAO().getAll();
+                List<Purse> purses = purseDAO.getAll();
                 for (Purse purse : purses) {
-                    if(purse.getOwnerId() == id) {
-                        daoManager.getPurseDAO().deleteById(purse.getId());
+                    if(purse.getOwner().getId() == id) {
+                        purseDAO.deleteById(purse.getId());
                     }
                 }
-                daoManager.getUserDAO().deleteById(id);
-                daoManager.commitTransaction();
+                userDAO.deleteById(id);
+                userDAO.commitTransaction();
             }catch (Exception e) {
-                daoManager.rollbackTransaction();
+                userDAO.rollbackTransaction();
                 throw new ServiceException(String.format("Can't delete user by id (%s)",id), e);
             }
         } catch (Exception e){}

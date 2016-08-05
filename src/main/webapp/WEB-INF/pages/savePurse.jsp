@@ -12,14 +12,7 @@
     <h1><p class="text-center">Save Purse</p></h1>
     <form:form method="post" action="/PurseCRUD-1.0-SNAPSHOT/save/purse" commandName="purseForm">
         <form:input class="form-control" id="id" path="id" value="${purseForm.id}" type="hidden"/>
-        <div>
-            <label>User</label>
-            <form:select path="ownerId" class="form-control">
-                <c:forEach var="user" items="${users}">
-                    <option value="${user.id}">${user.firstName}:${user.lastName}</option>
-                </c:forEach>
-            </form:select>
-        </div>
+        <form:input class="form-control" id="ownerId" path="ownerId" value="${ownerId}" type="hidden"/>
         <div class="form-group">
             <label>Name</label>
             <form:input class="form-control" id="name" path="name" placeholder="Name" value="${purseForm.name}"/>
@@ -36,7 +29,7 @@
         <div class="form-group">
             <label>Amount</label>
             <form:input class="form-control" id="name" path="amount" placeholder="Amount"
-                        value="${editPurse.amount}"/>
+                        value="${purseForm.amount}"/>
             <form:errors path="amount" cssStyle="color: #ff0000;"/>
         </div>
         <input class="btn btn-success btn-xs" type="submit" value="save">

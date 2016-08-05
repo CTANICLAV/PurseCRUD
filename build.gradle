@@ -16,6 +16,8 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-jdbc', version:'4.2.5.RELEASE'
     compile group: 'com.h2database', name:'h2', version:'1.4.191'
     compile group: 'commons-dbcp', name:'commons-dbcp', version:'1.4'
+    compile group: 'org.springframework', name:'spring-orm', version:'4.1.1.RELEASE'
+    compile group: 'org.hibernate', name:'hibernate-core', version:'4.3.6.Final'
 
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.1'
 

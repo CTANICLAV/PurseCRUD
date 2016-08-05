@@ -74,11 +74,15 @@ public class ExchangeController {
             return SAVE_EXCHANGE;
         }
         if ("".equals(exchangeForm.getId())) {
-            exchangeService.insert(new Exchange(0, Long.parseLong(exchangeForm.getSourceCurrencyId()),
-                    Long.parseLong(exchangeForm.getTargetCurrencyId()), Double.parseDouble(exchangeForm.getExchangeRate())));
+            Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
+            Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
+            exchangeService.insert(new Exchange(sourceCurrency,targetCurrency, Double.parseDouble(exchangeForm.getExchangeRate())));
         } else {
-            exchangeService.update(new Exchange(Long.parseLong(exchangeForm.getId()), Long.parseLong(exchangeForm.getSourceCurrencyId()),
-                    Long.parseLong(exchangeForm.getTargetCurrencyId()), Double.parseDouble(exchangeForm.getExchangeRate())));
+            Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
+            Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getTargetCurrencyId()));
+            Exchange exchange = new Exchange(sourceCurrency, targetCurrency, Double.parseDouble(exchangeForm.getExchangeRate()));
+            exchange.setId(Long.parseLong(exchangeForm.getId()));
+            exchangeService.update(exchange);
         }
         return showAllUsers(model);
     }
