@@ -6,28 +6,18 @@ import java.math.BigDecimal;
 public class Purse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-    @Column(name = "name")
     private String name;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "currencyId")
     private Currency currency;
     @ManyToOne
     @JoinColumn(name = "ownerId")
     private User owner;
-    @Column(name = "amount")
     private BigDecimal amount;
 
     public Purse() {
 
-    }
-
-    public Purse(String name, Currency currency, User owner, BigDecimal amount) {
-        this.name = name;
-        this.currency = currency;
-        this.owner = owner;
-        this.amount = amount;
     }
 
     public long getId() {

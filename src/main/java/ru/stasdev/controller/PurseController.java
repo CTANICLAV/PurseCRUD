@@ -68,7 +68,11 @@ public class PurseController {
         }
         User user = userService.getById(Long.parseLong(purseForm.getOwnerId()));
         Currency currency = currencyService.getById(Long.parseLong(purseForm.getCurrencyId()));
-        Purse purse = new Purse(purseForm.getName(), currency, user, new BigDecimal(purseForm.getAmount()));
+        Purse purse = new Purse();
+        purse.setName(purseForm.getName());
+        purse.setCurrency(currency);
+        purse.setOwner(user);
+        purse.setAmount(new BigDecimal(purseForm.getAmount()));
         purse.setId(Long.parseLong(purseForm.getId()));
         purseService.update(purse);
         return "redirect:/";
@@ -98,8 +102,12 @@ public class PurseController {
             return PAGE_USER_SAVE_PURSE;
         }
         Currency currency = currencyService.getById(Long.parseLong(purseForm.getCurrencyId()));
-        purseService.insert(new Purse(purseForm.getName(), currency, user,
-                new BigDecimal(purseForm.getAmount())));
+        Purse purse = new Purse();
+        purse.setName(purseForm.getName());
+        purse.setCurrency(currency);
+        purse.setOwner(user);
+        purse.setAmount(new BigDecimal(purseForm.getAmount()));
+        purseService.insert(purse);
         return "redirect:/";
     }
 

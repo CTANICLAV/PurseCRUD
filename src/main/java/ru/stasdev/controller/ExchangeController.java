@@ -76,11 +76,18 @@ public class ExchangeController {
         if ("".equals(exchangeForm.getId())) {
             Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
             Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
-            exchangeService.insert(new Exchange(sourceCurrency,targetCurrency, Double.parseDouble(exchangeForm.getExchangeRate())));
+            Exchange exchange = new Exchange();
+            exchange.setSourceCurrency(sourceCurrency);
+            exchange.setTargetCurrency(targetCurrency);
+            exchange.setExchangeRate(Double.parseDouble(exchangeForm.getExchangeRate()));
+            exchangeService.insert(exchange);
         } else {
             Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
             Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getTargetCurrencyId()));
-            Exchange exchange = new Exchange(sourceCurrency, targetCurrency, Double.parseDouble(exchangeForm.getExchangeRate()));
+            Exchange exchange = new Exchange();
+            exchange.setSourceCurrency(sourceCurrency);
+            exchange.setTargetCurrency(targetCurrency);
+            exchange.setExchangeRate(Double.parseDouble(exchangeForm.getExchangeRate()));
             exchange.setId(Long.parseLong(exchangeForm.getId()));
             exchangeService.update(exchange);
         }

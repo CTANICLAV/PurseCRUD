@@ -9,23 +9,16 @@ public class Exchange {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "sourceCurrencyId")
     private Currency sourceCurrency;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "targetCurrencyId")
     private Currency targetCurrency;
-    @Column(name = "exchangeRate")
     private double exchangeRate;
 
     public Exchange() {
 
-    }
-
-    public Exchange(Currency sourceCurrency, Currency targetCurrency, double exchangeRate) {
-        this.sourceCurrency = sourceCurrency;
-        this.targetCurrency = targetCurrency;
-        this.exchangeRate = exchangeRate;
     }
 
     public long getId() {

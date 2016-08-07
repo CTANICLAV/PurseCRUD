@@ -3,34 +3,17 @@ package ru.stasdev.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.stasdev.domain.Purse;
 
 import java.util.List;
 
-@Component
+@Repository
 public class PurseDAOImpl implements PurseDAO {
 
 
     @Autowired
     public SessionFactory sessionFactory;
-
-
-    @Override
-    public void beginTransaction() {
-        sessionFactory.getCurrentSession().beginTransaction();
-    }
-
-    @Override
-    public void commitTransaction() {
-        sessionFactory.getCurrentSession().getTransaction().commit();
-    }
-
-    @Override
-    public void rollbackTransaction() {
-        sessionFactory.getCurrentSession().getTransaction().rollback();
-    }
-
 
     @Override
     public Purse getById(long id) {

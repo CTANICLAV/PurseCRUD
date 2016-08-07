@@ -7,12 +7,6 @@ import java.util.List;
 
 public interface PurseDAO {
 
-    void beginTransaction();
-
-    void commitTransaction();
-
-    void rollbackTransaction();
-
     Purse getById(long id);
 
     void insert(Purse purse);

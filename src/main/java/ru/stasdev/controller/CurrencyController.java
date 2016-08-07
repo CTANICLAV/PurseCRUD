@@ -59,9 +59,12 @@ public class CurrencyController {
             return SAVE_CURRENCY;
         }
         if(currencyForm.getId().isEmpty()){
-            currencyService.insert(new Currency(currencyForm.getShortName()));
+            Currency currency = new Currency();
+            currency.setName(currencyForm.getShortName());
+            currencyService.insert(currency);
         } else {
-            Currency currency = new Currency(currencyForm.getShortName());
+            Currency currency = new Currency();
+            currency.setName(currencyForm.getShortName());
             currency.setId(Long.parseLong(currencyForm.getId()));
             currencyService.update(currency);
         }
@@ -69,9 +72,13 @@ public class CurrencyController {
     }
 
     @RequestMapping(value = "/delete/currency/{id}", method = RequestMethod.GET)
-    public RedirectView deleteCurrency(@PathVariable(value = "id") Long id) {
-        currencyService.deleteById(id);
-        return new RedirectView("/PurseCRUD-1.0-SNAPSHOT/all/currency");
+    public String deleteCurrency(@PathVariable(value = "id") Long id) {
+        try {
+            currencyService.deleteById(id);
+        return "redirect:/all/currency";
+        } catch (Exception e) {
+            return ERROR_PAGE;
+        }
     }
 
 }
