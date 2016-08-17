@@ -20,7 +20,7 @@ dependencies {
     compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '4.3.6.Final'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.6.Final'
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
 

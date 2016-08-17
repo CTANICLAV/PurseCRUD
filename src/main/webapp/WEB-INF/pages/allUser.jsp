@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>All User</title>
-    <jsp:include page="setupBootstrapPage.jsp" flush="true"/>
+    <jsp:include page="setupPage.jsp" flush="true"/>
 </head>
 <body>
 <div class="container">

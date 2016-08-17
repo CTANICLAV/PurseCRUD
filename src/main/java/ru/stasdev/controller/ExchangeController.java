@@ -74,24 +74,24 @@ public class ExchangeController {
             return SAVE_EXCHANGE;
         }
         if ("".equals(exchangeForm.getId())) {
-            Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
-            Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
-            Exchange exchange = new Exchange();
-            exchange.setSourceCurrency(sourceCurrency);
-            exchange.setTargetCurrency(targetCurrency);
-            exchange.setExchangeRate(Double.parseDouble(exchangeForm.getExchangeRate()));
+            Exchange exchange = getExchange(exchangeForm);
             exchangeService.insert(exchange);
         } else {
-            Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
-            Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getTargetCurrencyId()));
-            Exchange exchange = new Exchange();
-            exchange.setSourceCurrency(sourceCurrency);
-            exchange.setTargetCurrency(targetCurrency);
-            exchange.setExchangeRate(Double.parseDouble(exchangeForm.getExchangeRate()));
+            Exchange exchange = getExchange(exchangeForm);
             exchange.setId(Long.parseLong(exchangeForm.getId()));
             exchangeService.update(exchange);
         }
-        return showAllUsers(model);
+        return "redirect:/all/exchange";
+    }
+
+    private Exchange getExchange(@Validated ExchangeForm exchangeForm) {
+        Currency sourceCurrency = currencyService.getById(Long.parseLong(exchangeForm.getSourceCurrencyId()));
+        Currency targetCurrency = currencyService.getById(Long.parseLong(exchangeForm.getTargetCurrencyId()));
+        Exchange exchange = new Exchange();
+        exchange.setSourceCurrency(sourceCurrency);
+        exchange.setTargetCurrency(targetCurrency);
+        exchange.setExchangeRate(Double.parseDouble(exchangeForm.getExchangeRate()));
+        return exchange;
     }
 
     @RequestMapping(value = "/delete/exchange/{id}", method = RequestMethod.GET)

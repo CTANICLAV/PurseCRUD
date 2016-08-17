@@ -54,29 +54,34 @@ public class CurrencyController {
     }
 
     @RequestMapping(value = "/save/currency", method = RequestMethod.POST)
-    public String saveCurrency(@Validated CurrencyForm currencyForm, BindingResult bindingResult, ModelMap model) {
+    public String saveCurrency(@Validated CurrencyForm currencyForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return SAVE_CURRENCY;
         }
         if(currencyForm.getId().isEmpty()){
-            Currency currency = new Currency();
-            currency.setName(currencyForm.getShortName());
+            Currency currency = getCurrency(currencyForm);
             currencyService.insert(currency);
         } else {
-            Currency currency = new Currency();
-            currency.setName(currencyForm.getShortName());
+            Currency currency = getCurrency(currencyForm);
             currency.setId(Long.parseLong(currencyForm.getId()));
             currencyService.update(currency);
         }
-        return showPageAllCurrency(model);
+        return "redirect:/all/currency";
+    }
+
+    private Currency getCurrency(@Validated CurrencyForm currencyForm) {
+        Currency currency = new Currency();
+        currency.setName(currencyForm.getShortName());
+        return currency;
     }
 
     @RequestMapping(value = "/delete/currency/{id}", method = RequestMethod.GET)
-    public String deleteCurrency(@PathVariable(value = "id") Long id) {
+    public String deleteCurrency(@PathVariable(value = "id") Long id, ModelMap model) {
         try {
             currencyService.deleteById(id);
         return "redirect:/all/currency";
         } catch (Exception e) {
+            model.addAttribute("error", "Can't delete by Currency");
             return ERROR_PAGE;
         }
     }

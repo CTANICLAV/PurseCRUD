@@ -3,7 +3,7 @@
  <html>
  <head>
      <title>All Currency</title>
-     <jsp:include page="setupBootstrapPage.jsp" flush="true"/>
+     <jsp:include page="setupPage.jsp" flush="true"/>
  </head>
  <body>
  <div class="container">
@@ -26,7 +26,7 @@
                      <td>${currency.name}</td>
                     <td>
                         <p>
-                            <a class="btn btn-danger btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/delete/currency/${currency.id}" role="button">delete</a>
+                            <a onclick="deleteCurrency(${currency.id})" class="btn btn-danger btn-xs" role="button">delete</a>
                             <a class="btn btn-default btn-xs" href="/PurseCRUD-1.0-SNAPSHOT/save/currency/${currency.id}" role="button">edit</a>
                         </p>
                     </td>

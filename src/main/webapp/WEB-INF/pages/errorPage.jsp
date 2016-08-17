@@ -10,6 +10,7 @@
 <div class="container">
     <jsp:include page="topNavigationButtons.jsp" flush="true"/>
     <div class="alert alert-danger" role="alert"><p class="text-center">Something broken.</p></div>
+    <p class="text-center">${error}</p>
 </div>
 </body>
 </html>

@@ -1,42 +1,15 @@
 package ru.stasdev.dao;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.stasdev.domain.Currency;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Repository
-public class CurrencyDAOImpl implements CurrencyDAO {
+public class CurrencyDAOImpl extends GenericDAOImpl<Currency> implements CurrencyDAO {
 
-    @Autowired
-    public SessionFactory sessionFactory;
-
-    @Override
-    public Currency getById(long id) {
-        return (Currency) sessionFactory.getCurrentSession().get(Currency.class, id);
+    @PostConstruct
+    public void init() {
+        super.setType(Currency.class);
     }
-
-    @Override
-    public List<Currency> getAll() {
-        return sessionFactory.getCurrentSession().createCriteria(Currency.class).list();
-    }
-
-    @Override
-    public void insert(Currency currency) {
-        sessionFactory.getCurrentSession().save(currency);
-    }
-
-    @Override
-    public void update(Currency currency) {
-        sessionFactory.getCurrentSession().update(currency);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        Currency currency = (Currency) sessionFactory.getCurrentSession().get(Currency.class, id);
-        sessionFactory.getCurrentSession().delete(currency);
-    }
-
 }

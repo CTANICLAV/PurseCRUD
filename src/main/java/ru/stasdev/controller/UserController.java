@@ -56,18 +56,21 @@ public class UserController {
             return SAVE_USER;
         }
         if ("".equals(userForm.getId())){
-            User user = new User();
-            user.setFirstName(userForm.getFirstName());
-            user.setLastName(userForm.getLastName());
+            User user = getUser(userForm);
             userService.insert(user);
         }else{
-            User user = new User();
-            user.setFirstName(userForm.getFirstName());
-            user.setLastName(userForm.getLastName());
+            User user = getUser(userForm);
             user.setId(Long.parseLong(userForm.getId()));
             userService.update(user);
         }
         return showAllUsers(model);
+    }
+
+    private User getUser(@Validated UserForm userForm) {
+        User user = new User();
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        return user;
     }
 
     @RequestMapping(value = "/delete/user/{id}", method = RequestMethod.GET)
